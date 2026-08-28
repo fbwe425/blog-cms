@@ -2,12 +2,12 @@
 # Decap CMS 配置文件 — Cloudflare Worker 认证模式
 # =============================================================================
 
-# 后端配置 —— 使用 GitHub + Worker 代理认证
+# 后端配置
 backend:
   name: github
   repo: fbwe425/blog-cms
   branch: main
-  base_url: https://blog-cms-auth.你的子域.workers.dev  # 修改为你的 Worker 地址
+  base_url: https://blog-cms-auth.fbwe425.workers.dev
 
 # 媒体文件夹
 media_folder: "static/images/uploads"
@@ -24,9 +24,6 @@ i18n:
 # =============================================================================
 
 collections:
-  # ===========================================================================
-  # 博客文章
-  # ===========================================================================
   - name: "posts"
     label: "📝 文章管理"
     folder: "content/posts"
@@ -35,19 +32,15 @@ collections:
     slug: "{{year}}{{month}}{{day}}-{{slug}}"
     preview_path: "posts/{{slug}}"
     preview_path_date_field: "date"
-
     extension: "md"
     format: "frontmatter"
-
     sortable_fields: ["date", "title", "_modified_at"]
     sort_reverse: true
-
     fields:
       - label: "标题"
         name: "title"
         widget: "string"
         pattern: ['^.{1,100}$', "标题长度应在 1-100 个字符之间"]
-
       - label: "发布日期"
         name: "date"
         widget: "datetime"
@@ -55,19 +48,16 @@ collections:
         date_format: "YYYY-MM-DD"
         time_format: "HH:mm"
         format_utc: false
-
       - label: "发布状态"
         name: "draft"
         widget: "boolean"
         default: true
         hint: "开启后文章不会在线上显示"
-
       - label: "文章摘要"
         name: "description"
         widget: "text"
         required: false
         hint: "用于 SEO 和社交媒体预览"
-
       - label: "正文内容"
         name: "body"
         widget: "markdown"
@@ -85,14 +75,12 @@ collections:
         editor_components:
           - image
           - code-block
-
       - label: "标签"
         name: "tags"
         widget: "list"
         required: false
         hint: "为文章添加标签"
         allow_add: true
-
       - label: "分类"
         name: "categories"
         widget: "select"
@@ -105,7 +93,6 @@ collections:
           - { label: "随笔", value: "随笔" }
         required: false
         hint: "选择文章分类"
-
       - label: "封面图"
         name: "cover"
         widget: "object"
@@ -131,31 +118,26 @@ collections:
             widget: "boolean"
             default: false
             required: false
-
       - label: "作者"
         name: "author"
         widget: "string"
         required: false
         default: ""
-
       - label: "摘要"
         name: "summary"
         widget: "text"
         required: false
         hint: "自定义摘要，不填则自动从正文截取"
-
       - label: "显示目录"
         name: "showToc"
         widget: "boolean"
         default: true
         required: false
-
       - label: "目录默认展开"
         name: "TocOpen"
         widget: "boolean"
         default: false
         required: false
-
       - label: "排除页面"
         name: "exclude"
         widget: "boolean"
@@ -163,47 +145,36 @@ collections:
         required: false
         hint: "开启后此文章不会出现在列表中"
 
-  # ===========================================================================
-  # 独立页面
-  # ===========================================================================
   - name: "pages"
     label: "📄 页面管理"
     folder: "content"
     create: true
     slug: "{{slug}}"
     preview_path: "{{slug}}"
-
     extension: "md"
     format: "frontmatter"
-
     exclude:
       - "_index.md"
-
     fields:
       - label: "标题"
         name: "title"
         widget: "string"
-
       - label: "发布日期"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DDTHH:mm:ss+08:00"
         format_utc: false
-
       - label: "发布状态"
         name: "draft"
         widget: "boolean"
         default: true
-
       - label: "页面描述"
         name: "description"
         widget: "text"
         required: false
-
       - label: "正文内容"
         name: "body"
         widget: "markdown"
-
       - label: "布局"
         name: "layout"
         widget: "select"
@@ -212,16 +183,12 @@ collections:
           - { label: "文章列表", value: "_default/list" }
         default: "_default/single"
         required: false
-
       - label: "URL 路径"
         name: "url"
         widget: "string"
         required: false
         hint: "自定义页面 URL，如 /about"
 
-  # ===========================================================================
-  # 全站配置
-  # ===========================================================================
   - name: "settings"
     label: "⚙️ 网站设置"
     files:
@@ -252,42 +219,30 @@ collections:
               - { label: "始终亮色", value: "light" }
               - { label: "始终暗色", value: "dark" }
             default: "auto"
-
           - label: "显示分享按钮"
             name: "ShowShareButtons"
             widget: "boolean"
             default: true
-
           - label: "显示阅读时间"
             name: "ShowReadingTime"
             widget: "boolean"
             default: true
-
           - label: "显示面包屑导航"
             name: "ShowBreadCrumbs"
             widget: "boolean"
             default: true
-
           - label: "显示文章目录"
             name: "ShowToc"
             widget: "boolean"
             default: true
-
-          - label: "目录默认展开"
-            name: "TocOpen"
-            widget: "boolean"
-            default: false
-
           - label: "显示代码复制按钮"
             name: "ShowCodeCopyButtons"
             widget: "boolean"
             default: true
-
           - label: "启用搜索"
             name: "search"
             widget: "boolean"
             default: true
-
           - label: "首页欢迎信息"
             name: "homeInfoParams"
             widget: "object"
@@ -298,7 +253,6 @@ collections:
               - label: "内容"
                 name: "Content"
                 widget: "text"
-
           - label: "作者信息"
             name: "author"
             widget: "string"

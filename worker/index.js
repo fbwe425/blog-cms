@@ -1,10 +1,9 @@
 // =============================================================================
-// Cloudflare Worker — Decap CMS 认证代理
-// 功能：帐号密码登录 → 代理 GitHub API 请求
+// Cloudflare Worker — Decap CMS 认证代理（ES Module 格式）
 // =============================================================================
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, event) {
     const url = new URL(request.url);
 
     // 登录页面
@@ -16,7 +15,7 @@ export default {
 
     // 处理登录
     if (url.pathname === '/admin/login' && request.method === 'POST') {
-      return handleLogin(request, env);
+      return handleLogin(request, event);
     }
 
     // 登出
@@ -41,7 +40,8 @@ export default {
       }
 
       // 验证 session 是否有效
-      const valid = await env.SESSIONS.get(session);
+      const sessions = event.env.SESSIONS;
+      const valid = await sessions.get(session);
       if (!valid) {
         return new Response(JSON.stringify({ error: '登录已过期，请重新登录' }), {
           status: 401,
@@ -50,10 +50,10 @@ export default {
       }
 
       // 代理请求到 GitHub API
-      return proxyToGitHub(request, env);
+      return proxyToGitHub(request, event);
     }
 
-    // 其他请求放行（静态资源等）
+    // 其他请求放行
     return fetch(request);
   },
 };
@@ -87,60 +87,21 @@ function getLoginPage() {
       border-radius: 12px;
       border: 1px solid #333;
     }
-    .login-box h1 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-    }
-    .login-box .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-    }
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-      color: #999;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px 14px;
-      font-size: 1rem;
-      border: 1px solid #333;
-      border-radius: 8px;
-      background: #0a0a0a;
-      color: #fff;
-      outline: none;
-      transition: border-color 0.2s;
+    .login-box h1 { text-align: center; margin-bottom: 0.5rem; font-size: 1.5rem; }
+    .login-box .subtitle { text-align: center; color: #666; margin-bottom: 2rem; font-size: 0.9rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; color: #999; }
+    input[type="text"], input[type="password"] {
+      width: 100%; padding: 10px 14px; font-size: 1rem; border: 1px solid #333;
+      border-radius: 8px; background: #0a0a0a; color: #fff; outline: none;
     }
     input:focus { border-color: #2563eb; }
     .btn {
-      width: 100%;
-      padding: 12px;
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background: #2563eb;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.2s;
+      width: 100%; padding: 12px; margin-top: 0.5rem; font-size: 1rem; border: none;
+      border-radius: 8px; background: #2563eb; color: #fff; cursor: pointer;
     }
     .btn:hover { background: #1d4ed8; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .error {
-      color: #ef4444;
-      font-size: 0.85rem;
-      margin-top: 0.8rem;
-      text-align: center;
-      display: none;
-    }
+    .error { color: #ef4444; font-size: 0.85rem; margin-top: 0.8rem; text-align: center; display: none; }
     .error.show { display: block; }
   </style>
 </head>
@@ -151,11 +112,11 @@ function getLoginPage() {
     <form id="loginForm">
       <div class="form-group">
         <label for="username">帐号</label>
-        <input type="text" id="username" name="username" required autocomplete="username" autofocus>
+        <input type="text" id="username" name="username" required autofocus>
       </div>
       <div class="form-group">
         <label for="password">密码</label>
-        <input type="password" id="password" name="password" required autocomplete="current-password">
+        <input type="password" id="password" name="password" required>
       </div>
       <button type="submit" class="btn" id="submitBtn">登 录</button>
       <div class="error" id="errorMsg"></div>
@@ -169,7 +130,6 @@ function getLoginPage() {
       btn.disabled = true;
       btn.textContent = '登录中...';
       err.classList.remove('show');
-
       const resp = await fetch('/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -178,12 +138,10 @@ function getLoginPage() {
           password: document.getElementById('password').value,
         }),
       });
-
       if (resp.redirected) {
         window.location.href = resp.url.replace('/admin/login', '/admin/');
         return;
       }
-
       const data = await resp.json();
       if (data.error) {
         err.textContent = data.error;
@@ -198,40 +156,35 @@ function getLoginPage() {
 }
 
 // =============================================================================
-// 处理登录逻辑
+// 处理登录
 // =============================================================================
-async function handleLogin(request, env) {
+async function handleLogin(request, event) {
   const { username, password } = await request.json();
-
-  // 从 KV 读取存储的帐号密码
-  const stored = await env.AUTH_CREDENTIALS.get('admin', { type: 'json' });
+  const authCreds = event.env.AUTH_CREDENTIALS;
+  const stored = await authCreds.get('admin', { type: 'json' });
 
   if (!stored) {
     return Response.json({ error: '系统未配置管理员帐号' }, { status: 500 });
   }
 
-  // 验证帐号密码
   if (username !== stored.username || password !== stored.password) {
     return Response.json({ error: '帐号或密码错误' }, { status: 401 });
   }
 
-  // 生成 session token
   const sessionToken = crypto.randomUUID();
-  const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24小时过期
+  const sessions = event.env.SESSIONS;
 
-  // 存储 session 到 KV
-  await env.SESSIONS.put(sessionToken, JSON.stringify({
+  await sessions.put(sessionToken, JSON.stringify({
     username,
     createdAt: Date.now(),
-    expiresAt,
+    expiresAt: Date.now() + 86400000,
   }), { expirationTtl: 86400 });
 
-  // 返回重定向 + Set-Cookie
   return new Response(JSON.stringify({ success: true }), {
     status: 302,
     headers: {
       'Location': '/admin/',
-      'Set-Cookie': `session=${sessionToken}; Path=/admin; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`,
+      'Set-Cookie': 'session=' + sessionToken + '; Path=/admin; HttpOnly; Secure; SameSite=Lax; Max-Age=86400',
     },
   });
 }
@@ -248,22 +201,17 @@ function getSession(request) {
 // =============================================================================
 // 代理请求到 GitHub API
 // =============================================================================
-async function proxyToGitHub(request, env) {
+async function proxyToGitHub(request, event) {
   const url = new URL(request.url);
-
-  // 构建 GitHub API URL
   const githubApiBase = 'https://api.github.com';
   const githubPath = url.pathname.replace('/admin/api', '');
 
-  // 复制请求头
   const headers = new Headers(request.headers);
-  headers.set('Authorization', `token ${env.GITHUB_TOKEN}`);
   headers.set('Accept', 'application/vnd.github.v3+json');
   headers.delete('Host');
   headers.delete('Cookie');
 
-  // 构建新请求
-  const newRequest = new Request(`${githubApiBase}${githubPath}${url.search}`, {
+  const newRequest = new Request(githubApiBase + githubPath + url.search, {
     method: request.method,
     headers,
     body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
