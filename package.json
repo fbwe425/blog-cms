@@ -1,0 +1,24 @@
+{
+  "name": "blog-cms",
+  "version": "1.0.0",
+  "description": "Hugo + Decap CMS 博客系统",
+  "private": true,
+  "scripts": {
+    "dev": "hugo server -D --bind 0.0.0.0",
+    "dev:open": "hugo server -D -b http://localhost:1313",
+    "build": "hugo --minify",
+    "build:production": "HUGO_ENVIRONMENT=production hugo --minify --gc",
+    "clean": "rm -rf public resources/_gen",
+    "new:post": "hugo new content posts/$(date +%Y%m%d)-new-post.md",
+    "new:page": "hugo new content",
+    "preview": "hugo server -D --navigateToChanged",
+    "check": "hugo config",
+    "update": "hugo mod get -u"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

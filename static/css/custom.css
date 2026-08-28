@@ -1,0 +1,142 @@
+/* =============================================================================
+ * 自定义样式 - Blog CMS
+ * ============================================================================= */
+
+/* 搜索结果样式 */
+#search-results a:hover {
+  text-decoration: underline;
+}
+
+/* 标签云悬停效果 */
+.tag-cloud a:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 文章列表项悬停效果 */
+.post-entry:hover {
+  transform: translateX(4px);
+}
+
+/* 代码块美化 */
+pre code {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+th {
+  background: #1a1a1a;
+  font-weight: 600;
+}
+
+/* 引用块美化 */
+blockquote {
+  border-left: 4px solid #2563eb;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #999;
+  font-style: italic;
+}
+
+/* 图片响应式 */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* 目录样式 */
+.toc {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.toc-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* 分享按钮样式 */
+.share-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.share-buttons a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.share-buttons a:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* 面包屑导航 */
+.breadcrumbs {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.breadcrumbs a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+/* 文章元信息 */
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.post-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .post-entry {
+    padding: 0.75rem 0;
+  }
+
+  .tag-cloud a {
+    font-size: 0.8rem !important;
+  }
+}

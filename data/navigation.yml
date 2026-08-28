@@ -1,0 +1,25 @@
+# 导航菜单数据文件
+# 这些设置可通过 Decap CMS 后台修改
+
+main:
+  - name: "🏠 首页"
+    url: "/"
+    weight: 1
+  - name: "📚 归档"
+    url: "/archives"
+    weight: 2
+  - name: "🏷️ 标签"
+    url: "/tags"
+    weight: 3
+  - name: "📂 分类"
+    url: "/categories"
+    weight: 4
+  - name: "🔍 搜索"
+    url: "/search"
+    weight: 5
+  - name: "ℹ️ 关于"
+    url: "/about"
+    weight: 6
+  - name: "⚙️ 后台管理"
+    url: "/admin"
+    weight: 7

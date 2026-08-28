@@ -1,0 +1,15 @@
+{{- $pages := where .Site.RegularPages "Params.exclude" "!=" true -}}
+[
+{{- range $index, $page := $pages }}
+  {{- if $index }},{{ end }}
+  {
+    "title": {{ $page.Title | jsonify }},
+    "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
+    "permalink": {{ $page.Permalink | jsonify }},
+    "summary": {{ $page.Summary | plainify | truncate 200 | jsonify }},
+    "tags": {{ $page.Params.tags | default (slice) | jsonify }},
+    "categories": {{ $page.Params.categories | default (slice) | jsonify }},
+    "cover": {{ $page.Params.cover.image | default "" | jsonify }}
+  }
+{{- end }}
+]

@@ -1,0 +1,14 @@
+# BLOG_CMS — Hugo + Decap CMS 博客项目
+- [x] 创建 TODO 和项目基础结构
+- [x] 创建 Hugo 配置文件 (hugo.toml)
+- [x] 创建基本布局模板 (layouts)
+- [ ] 安装 PaperMod 主题
+- [ ] 创建内容原型 (archetypes)
+- [ ] 设置 Decap CMS 后台管理面板
+- [ ] 创建示例文章和页面
+- [ ] 配置 GitHub Actions 部署
+- [ ] 配置 Vercel 部署
+- [ ] 配置 Cloudflare Pages 部署
+- [ ] 创建本地开发脚本和 package.json
+- [ ] 编写完整 README
+- [ ] 初始化 Git 仓库

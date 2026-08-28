@@ -1,0 +1,60 @@
+{{ define "main" }}
+<article style="max-width: 700px; margin: 2rem auto; padding: 0 1rem;">
+  <h1 style="margin-bottom: 2rem;">🔍 搜索</h1>
+  <input
+    type="search"
+    id="search-input"
+    placeholder="输入关键词搜索..."
+    autocomplete="off"
+    style="
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1.1rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      outline: none;
+    "
+  >
+  <div id="search-results" style="margin-top: 1.5rem;"></div>
+</article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  let data = [];
+
+  fetch({{ "/index.json" | relLangURL }})
+    .then(function(r) { return r.json(); })
+    .then(function(json) { data = json; });
+
+  input.addEventListener('input', function() {
+    var q = this.value.toLowerCase().trim();
+    if (!q) { results.innerHTML = ''; return; }
+
+    var matches = data.filter(function(item) {
+      return item.title.toLowerCase().indexOf(q) !== -1 ||
+        item.summary.toLowerCase().indexOf(q) !== -1 ||
+        (item.tags || []).some(function(t) { return t.toLowerCase().indexOf(q) !== -1; });
+    });
+
+    if (matches.length === 0) {
+      results.innerHTML = '<p style="color: #666;">没有找到相关文章</p>';
+      return;
+    }
+
+    results.innerHTML = matches.map(function(item) {
+      return '<div style="padding: 1rem 0; border-bottom: 1px solid #1a1a1a;">' +
+        '<a href="' + item.permalink + '" style="color: #2563eb; text-decoration: none; font-size: 1.1rem;">' +
+        item.title + '</a>' +
+        '<p style="color: #666; margin-top: 0.3rem; font-size: 0.9rem;">' + item.summary + '</p>' +
+        '<div style="margin-top: 0.5rem;">' +
+        (item.tags || []).map(function(t) { return '<span style="color: #888; font-size: 0.8rem;">#' + t + ' </span>'; }).join('') +
+        '</div></div>';
+    }).join('');
+  });
+});
+</script>
+{{ end }}

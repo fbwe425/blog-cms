@@ -1,0 +1,41 @@
+{{ define "main" }}
+<article style="max-width: 700px; margin: 2rem auto; padding: 0 1rem;">
+  <h1 style="margin-bottom: 2rem;">{{ .Title }}</h1>
+
+  <div class="tag-cloud" style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem;">
+    {{ range .Data.Terms.Alphabetical }}
+    <a href="{{ .Page.Permalink }}"
+       style="
+         padding: 6px 14px;
+         background: #1a1a1a;
+         border: 1px solid #333;
+         border-radius: 20px;
+         color: #e0e0e0;
+         text-decoration: none;
+         font-size: {{ add 0.8 (mul 0.15 .Count) }}rem;
+         transition: all 0.2s;
+       ">
+      {{ .Page.Title }} <span style="color: #666;">({{ .Count }})</span>
+    </a>
+    {{ end }}
+  </div>
+
+  {{ range .Data.Terms.Alphabetical }}
+  <section style="margin-bottom: 2rem;">
+    <h2 style="color: #2563eb; margin-bottom: 1rem;">{{ .Page.Title }} ({{ .Count }})</h2>
+    <ul style="list-style: none; padding: 0;">
+      {{ range .Pages }}
+      <li style="padding: 0.4rem 0;">
+        <a href="{{ .Permalink }}" style="color: #e0e0e0; text-decoration: none;">
+          {{ .Title }}
+        </a>
+        <span style="color: #666; font-size: 0.85rem; margin-left: 0.5rem;">
+          {{ .Date.Format "2006-01-02" }}
+        </span>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</article>
+{{ end }}

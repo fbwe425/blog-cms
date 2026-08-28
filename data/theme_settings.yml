@@ -1,0 +1,17 @@
+# 主题设置数据文件
+# 这些设置可通过 Decap CMS 后台修改
+
+defaultTheme: auto
+ShowShareButtons: true
+ShowReadingTime: true
+ShowBreadCrumbs: true
+ShowToc: true
+TocOpen: false
+ShowCodeCopyButtons: true
+search: true
+
+homeInfoParams:
+  Title: "👋 欢迎来到我的博客"
+  Content: "这里是我的个人博客，记录技术、生活与思考。"
+
+author: "作者名"

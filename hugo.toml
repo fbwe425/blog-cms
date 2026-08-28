@@ -1,0 +1,127 @@
+# =============================================================================
+# Hugo 配置文件
+# =============================================================================
+
+baseURL = "/"
+languageCode = "zh-cn"
+defaultContentLanguage = "zh"
+title = "我的博客"
+theme = "papermod"
+paginate = 10
+
+# 安全 & 权限
+enableRobotsTXT = true
+enableGitInfo = true
+
+# 启用 Emoji 和 Markdown 扩展
+enableEmoji = true
+markup:
+  highlight:
+    style: monokai
+    lineNos: false
+    codeFences: true
+    guessSyntax: true
+  goldmark:
+    renderer:
+      unsafe: true  # 允许 HTML，Decap CMS 需要
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+
+# 多语言 (可选，可自行扩展)
+languages:
+  zh:
+    languageName: "中文"
+    weight: 1
+
+# 分类
+taxonomies:
+  tag: tags
+  category: categories
+
+# 参数配置
+params:
+  env: production
+  description: "一个简洁优雅的技术博客"
+  author: "作者名"
+  defaultTheme: auto  # auto, dark, light
+  ShowShareButtons: true
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+  TocOpen: false
+  comments: false
+  search: true
+
+  homeInfoParams:
+    Title: "👋 欢迎来到我的博客"
+    Content: "这里是我的个人博客，记录技术、生活与思考。"
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/"
+    - name: twitter
+      url: "https://twitter.com/"
+
+  # 封面图设置
+  cover:
+    hidden: false
+    hiddenInList: false
+    hiddenInSingle: false
+
+  # 编辑按钮
+  editPost:
+    URL: "https://github.com/你的用户名/你的仓库/edit/main/content"
+    Text: "在 GitHub 上编辑本页"
+    appendFilePath: true
+
+  # 文章目录位置
+  assets:
+    favicon: "/favicon.ico"
+
+# 菜单
+menu:
+  main:
+    - name: "🏠 首页"
+      url: "/"
+      weight: 1
+    - name: "📚 归档"
+      url: "/archives"
+      weight: 2
+    - name: "🏷️ 标签"
+      url: "/tags"
+      weight: 3
+    - name: "📂 分类"
+      url: "/categories"
+      weight: 4
+    - name: "🔍 搜索"
+      url: "/search"
+      weight: 5
+    - name: "ℹ️ 关于"
+      url: "/about"
+      weight: 6
+    - name: "⚙️ 后台管理"
+      url: "/admin"
+      weight: 7
+
+  # 侧边栏菜单（PaperMod 特有）
+  sidebar:
+    - name: "RSS 订阅"
+      url: "/index.xml"
+      pre: "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 11a9 9 0 0 1 9 9'></path><path d='M4 4a16 16 0 0 1 16 16'></path><circle cx='5' cy='19' r='1'></circle></svg>"
+      weight: 1
+
+# 输出配置
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON  # 搜索功能需要
+
+# 静态文件
+staticDir: static
+
+# 输出文件配置（Decap CMS 需要）
+enableMissingTranslationPlaceholders: true

@@ -1,0 +1,24 @@
+# Cloudflare Pages 部署配置
+# 在 Cloudflare Dashboard 中配置:
+#   Framework preset: Hugo
+#   Build command: hugo --minify
+#   Build output directory: public
+#   Environment variables:
+#     HUGO_VERSION: 0.139.0
+
+# 如果使用 Wrangler CLI 部署，可以运行:
+# npx wrangler pages deploy ./public
+
+name = "blog-cms"
+compatibility_date = "2024-01-01"
+
+[site]
+bucket = "./public"
+
+[build]
+command = "hugo --minify"
+watch_dir = "content"
+
+[build.environment]
+HUGO_VERSION = "0.139.0"
+HUGO_ENVIRONMENT = "production"

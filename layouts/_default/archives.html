@@ -1,0 +1,26 @@
+{{ define "main" }}
+<article style="max-width: 700px; margin: 2rem auto; padding: 0 1rem;">
+  <h1 style="margin-bottom: 2rem;">📚 归档</h1>
+
+  {{ $byYear := .Pages.ByDate.Reverse.GroupByDate "2006" }}
+  {{ range $byYear }}
+  <div class="year-group" style="margin-bottom: 2rem;">
+    <h2 style="color: #2563eb; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+      {{ .Key }}
+    </h2>
+    <ul style="list-style: none; padding: 0;">
+      {{ range .Pages }}
+      <li style="padding: 0.5rem 0; border-bottom: 1px solid #1a1a1a;">
+        <time style="color: #666; font-size: 0.9rem; margin-right: 1rem;">
+          {{ .Date.Format "01-02" }}
+        </time>
+        <a href="{{ .Permalink }}" style="color: #e0e0e0; text-decoration: none;">
+          {{ .Title }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</article>
+{{ end }}
