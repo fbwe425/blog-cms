@@ -1,13 +1,13 @@
 # =============================================================================
-# Decap CMS 配置文件 — Cloudflare Worker 认证模式
+# Decap CMS 配置文件 — Cloudflare Pages 认证模式
 # =============================================================================
 
-# 后端配置
+# 后端配置 —— 使用 GitHub + 本地认证代理
 backend:
   name: github
   repo: fbwe425/blog-cms
   branch: main
-  base_url: https://blog-cms-auth.fbwe425.workers.dev
+  # 不使用外部 OAuth，通过本地认证代理处理
 
 # 媒体文件夹
 media_folder: "static/images/uploads"
