@@ -1,13 +1,13 @@
 # =============================================================================
-# Decap CMS 配置文件
+# Decap CMS 配置文件 — 帐号密码认证模式
 # =============================================================================
 
-# 后端配置 —— 根据你使用的平台修改
+# 后端配置 —— 使用 Git Gateway（帐号密码认证）
 backend:
-  name: github
-  repo: 你的用户名/你的仓库名    # 修改为你的 GitHub 仓库
-  branch: main                    # 部署分支
-  base_url: https://decap-oauth.netlify.app  # 免费 OAuth 代理
+  name: git-gateway
+  branch: main
+  identity_url: https://你的站点名.netlify.app/.netlify/identity
+  gateway_url: https://你的站点名.netlify.app/.netlify/git
 
 # 媒体文件夹
 media_folder: "static/images/uploads"
@@ -36,15 +36,12 @@ collections:
     preview_path: "posts/{{slug}}"
     preview_path_date_field: "date"
 
-    # 允许的文件扩展名
     extension: "md"
     format: "frontmatter"
 
-    # 排序
     sortable_fields: ["date", "title", "_modified_at"]
     sort_reverse: true
 
-    # 字段
     fields:
       - label: "标题"
         name: "title"
@@ -179,7 +176,6 @@ collections:
     extension: "md"
     format: "frontmatter"
 
-    # 排除文章文件夹和特殊文件
     exclude:
       - "_index.md"
 
@@ -216,7 +212,6 @@ collections:
           - { label: "文章列表", value: "_default/list" }
         default: "_default/single"
         required: false
-        hint: "选择页面的布局模板"
 
       - label: "URL 路径"
         name: "url"
@@ -230,7 +225,6 @@ collections:
   - name: "settings"
     label: "⚙️ 网站设置"
     files:
-      # 基础配置
       - name: "general"
         label: "基本设置"
         file: "hugo.toml"
@@ -244,7 +238,6 @@ collections:
             widget: "text"
             required: false
 
-      # 主题设置
       - name: "theme_settings"
         label: "🎨 主题设置"
         file: "data/theme_settings.yml"
@@ -311,7 +304,6 @@ collections:
             widget: "string"
             default: ""
 
-      # 菜单配置
       - name: "navigation"
         label: "🔗 导航菜单"
         file: "data/navigation.yml"

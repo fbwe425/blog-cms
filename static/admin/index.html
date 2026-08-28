@@ -34,5 +34,17 @@
     <span>加载后台管理系统...</span>
   </div>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Git Gateway 身份验证初始化
+    window.addEventListener('load', function() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function(user) {
+          if (!user) {
+            window.netlifyIdentity.open('login');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
