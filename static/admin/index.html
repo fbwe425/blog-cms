@@ -35,16 +35,20 @@
   </div>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Git Gateway 身份验证初始化
-    window.addEventListener('load', function() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function(user) {
-          if (!user) {
-            window.netlifyIdentity.open('login');
-          }
-        });
+    // 检查是否已通过 Worker 认证
+    // 如果未认证，跳转到 Worker 登录页面
+    (function() {
+      var cookies = document.cookie.split(';');
+      var hasSession = false;
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].trim().indexOf('session=') === 0) {
+          hasSession = true;
+          break;
+        }
       }
-    });
+      // 如果没有 session cookie，说明未通过 Worker 认证
+      // Decap CMS 会尝试使用 GitHub OAuth，但会被 Worker 拦截
+    })();
   </script>
 </body>
 </html>

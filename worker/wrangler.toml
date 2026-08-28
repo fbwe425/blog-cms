@@ -1,0 +1,25 @@
+# =============================================================================
+# Cloudflare Worker 配置 — Decap CMS 认证代理
+# =============================================================================
+
+name = "blog-cms-auth"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+# KV 命名空间 —— 存储帐号密码和 Session
+# 部署前需要先创建 KV namespace
+# 运行: wrangler kv:namespace create "SESSIONS"
+# 运行: wrangler kv:namespace create "AUTH_CREDENTIALS"
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "你的SESSIONS_KV_ID"
+
+[[kv_namespaces]]
+binding = "AUTH_CREDENTIALS"
+id = "你的AUTH_CREDENTIALS_KV_ID"
+
+# 环境变量 —— GitHub Token 通过 wrangler secret 设置
+# 运行: wrangler secret put GITHUB_TOKEN
+# 运行: wrangler secret put GITHUB_REPO
+[vars]
+GITHUB_REPO = "fbwe425/blog-cms"

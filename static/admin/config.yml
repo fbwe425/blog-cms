@@ -1,26 +1,26 @@
 # =============================================================================
-# Decap CMS 配置文件 — 帐号密码认证模式
+# Decap CMS 配置文件 — Cloudflare Worker 认证模式
 # =============================================================================
 
-# 后端配置 —— 使用 Git Gateway（帐号密码认证）
+# 后端配置 —— 使用 GitHub + Worker 代理认证
 backend:
-  name: git-gateway
+  name: github
+  repo: fbwe425/blog-cms
   branch: main
-  identity_url: https://你的站点名.netlify.app/.netlify/identity
-  gateway_url: https://你的站点名.netlify.app/.netlify/git
+  base_url: https://blog-cms-auth.你的子域.workers.dev  # 修改为你的 Worker 地址
 
 # 媒体文件夹
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
-# 本地化（可选）
+# 本地化
 i18n:
   structure: "single_file"
   locales: ["zh", "en"]
   default_locale: "zh"
 
 # =============================================================================
-# 集合配置 —— 管理哪些内容
+# 集合配置
 # =============================================================================
 
 collections:
