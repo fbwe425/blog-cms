@@ -1,4 +1,6 @@
-# 📝 Blog CMS — Hugo + Decap CMS 博客系统
+# 📝 Blog CMS
+
+![Version](https://img.shields.io/badge/version-1.3.0-blue?style=flat) ![License](https://img.shields.io/badge/license-MIT-green?style=flat) ![Hugo](https://img.shields.io/badge/Hugo-0.136.0-FF4088?style=flat&logo=hugo) — Hugo + Decap CMS 博客系统
 
 一个功能完整的现代博客系统，支持后台管理、多平台部署。
 
