@@ -11,23 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RSS feed support
 - Comment system integration (Giscus)
 - Multi-language (i18n) support
+- Sitemap auto-generation on build
 
-## [1.3.0] - 2026-09-06
+## [1.3.0] - 2026-09-08
 
 ### Added
-- Sitemap auto-generation on build
-- Open Graph image support for blog posts
-- Code syntax highlighting via Shiki (replaces Highlight.js)
-- Reading time estimate displayed on post cards
+- GitHub Actions Lighthouse CI workflow
+- Bug report & feature request issue templates
+- `CONTRIBUTING.md` with clear PR guidelines
 
-### Changed
-- Upgraded Hugo to v0.136.0
-- Migrated admin authentication to Cloudflare Zero Trust Access
-- Improved mobile navigation UX with slide-in drawer
-
-### Fixed
-- Search index not including posts with future dates
-- Dark mode flicker when navigating between pages via View Transitions API
+### Improved
+- Build pipeline now outputs minified HTML/CSS/JS
+- Dark mode: eliminated FOUC (Flash of Unstyled Content) on first load
 
 ## [1.2.0] - 2026-09-05
 
