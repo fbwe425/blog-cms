@@ -13,6 +13,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-language (i18n) support
 - Sitemap auto-generation on build
 
+## [1.4.0] - 2026-09-07
+
+### Added
+- Comprehensive deployment guide (`docs/DEPLOYMENT.md`) for Cloudflare Pages, Vercel, and GitHub Pages
+- Environment variable reference table
+- Local development quick-start with Hugo version pinning
+
+### Changed
+- Upgraded Hugo extended to v0.136.0
+- CF Pages authentication now defaults to Cloudflare Zero Trust Access (replaces Netlify Identity default)
+
+### Fixed
+- 404 on `/admin` when `_redirects` missing from `static/` — added file with documentation
+
 ## [1.3.0] - 2026-09-08
 
 ### Added
