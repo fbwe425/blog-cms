@@ -283,3 +283,11 @@ MIT License
 - [Decap CMS](https://decapcms.org/) — 开源内容管理系统
 - [PaperMod](https://github.com/adityatelange/hugo-PaperMod/) — 优秀的 Hugo 主题
 - [Cloudflare](https://www.cloudflare.com/) — 免费的 CDN、Pages 和 Functions
+
+## 🗓️ Changelog
+
+### v1.4.1 — 2026-09-09
+- Improved deployment documentation for multi-region edge configurations
+- Added troubleshooting section for Cloudflare Workers KV binding issues
+- Refined Hugo 0.136.0 compatibility notes
+- Minor README corrections and link updates
