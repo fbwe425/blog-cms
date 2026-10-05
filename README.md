@@ -291,3 +291,14 @@ MIT License
 - Added troubleshooting section for Cloudflare Workers KV binding issues
 - Refined Hugo 0.136.0 compatibility notes
 - Minor README corrections and link updates
+
+## 🔎 Operations Checklist
+
+Before each production deploy, verify the following edge-runtime essentials:
+
+- [ ] Confirm the Cloudflare Pages build command and Hugo version match the documented release.
+- [ ] Validate all Workers KV bindings in the preview environment before promoting to production.
+- [ ] Purge only the affected cache paths after content updates; keep immutable assets cached.
+- [ ] Review deployment logs for function exceptions and route regressions.
+
+This checklist is intentionally platform-agnostic and applies to both Cloudflare Pages and Vercel preview workflows.
